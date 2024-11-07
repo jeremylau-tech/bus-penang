@@ -79,7 +79,7 @@ const JourneyPlanner = () => {
           type="datetime-local"
           value={departureTime}
           onChange={(e) => setDepartureTime(e.target.value)}
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered w-full max-w-xs bg-gray-700 text-white pl-2"
         />
       </div>
 
