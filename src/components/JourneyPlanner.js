@@ -75,6 +75,14 @@ const JourneyPlanner = () => {
           placeholder="Choose destination"
         />
       </div>
+      <div className="mb-4">
+        <input
+          type="datetime-local"
+          value={departureTime}
+          onChange={(e) => setDepartureTime(e.target.value)}
+          className="input input-bordered w-full max-w-xs"
+        />
+      </div>
 
       <button onClick={handleSearch} className="btn btn-primary bg-blue-500 text-white p-2 rounded-md">
         Search
