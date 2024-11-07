@@ -1,19 +1,22 @@
+// JourneyPlanner.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Weather from './Weather';
+import SuggestedRoutes from './SuggestedRoutes';
 
 const JourneyPlanner = () => {
   const [startingPoint, setStartingPoint] = useState('');
   const [departureTime, setDepartureTime] = useState('');
-  const [destination, setDestination] = useState('')
+  const [destination, setDestination] = useState('');
   const [results, setResults] = useState([]);
+  const [showRoutes, setShowRoutes] = useState(false);
   const navigate = useNavigate();
 
-  const formattedDepartureTime = departureTime ? `${departureTime}:00Z` : "";
+  const formattedDepartureTime = departureTime ? `${departureTime}:00Z` : '';
 
   const requestBody = {
-    origin: { address: origin },
+    origin: { address: startingPoint },
     destination: { address: destination },
     travelMode: "TRANSIT",
     departureTime: formattedDepartureTime,
@@ -26,37 +29,51 @@ const JourneyPlanner = () => {
 
   const handleSearch = async () => {
     try {
-      axios.post('https://routes.googleapis.com/directions/v2:computeRoutes', requestBody, {
+      setShowRoutes(true);
+
+      const placeholderResults = [
+        {
+          id: "1",
+          name: "T310",
+          departure: { name: "Pusat Sejahtera", time: "2024-11-08T00:05:39Z" },
+          stops: { number: 17 },
+          arrival: { name: "Queensbay Mall", time: "2024-11-08T00:29:55Z" }
+        },
+        {
+          id: "2",
+          name: "T320",
+          departure: { name: "Komtar", time: "2024-11-08T01:10:00Z" },
+          stops: { number: 12 },
+          arrival: { name: "Batu Ferringhi", time: "2024-11-08T01:40:00Z" }
+        },
+        {
+          id: "3",
+          name: "T330",
+          departure: { name: "Jelutong", time: "2024-11-08T02:00:00Z" },
+          stops: { number: 10 },
+          arrival: { name: "Penang Hill", time: "2024-11-08T02:30:00Z" }
+        }
+      ];
+
+      setResults(placeholderResults);
+
+      /*
+      const response = await axios.post('https://routes.googleapis.com/directions/v2:computeRoutes', requestBody, {
         headers: {
           'Content-Type': 'application/json',
-          'X-Goog-Api-Key': 'AIzaSyC1a3VDKXzUloohjWfOgln8dpmHPXFXm50',  // Replace with your Google API key
+          'X-Goog-Api-Key': 'YOUR_API_KEY',
           'X-Goog-FieldMask': 'routes.legs.steps.transitDetails'
         }
-      })
-      .then(response => {
-        console.log('Route response:', response.data);
-        setResults(response.data);
-
-      })
-      .catch(error => {
-        console.error('Error fetching route:', error);
       });
-      // const response = await axios.get(`http://localhost:5000/bus-schedules?from=${origin}&to=${destination}&time=${departureTime}`);
-      // setResults(response.data);
+      setResults(response.data.routes);
+      */
     } catch (error) {
-      console.error("Error fetching bus schedules", error);
+      console.error("Error fetching routes:", error);
     }
   };
 
-  const handleSelectJourney = (journeyId) => {
-    // history.push(`/tracking/${journeyId}`);
-    navigate(`/tracking/${journeyId}`);
-  };
-
-
-  console.log(results.data);
   return (
-    <div className="p-4 bg-gray-800 rounded-md text-white">
+    <div className="p-4 bg-gray-800 rounded-md text-white h-full flex flex-col">
       <div className="mb-4">
         <input
           type="text"
@@ -75,38 +92,19 @@ const JourneyPlanner = () => {
           placeholder="Choose destination"
         />
       </div>
-
-      <button onClick={handleSearch} className="btn btn-primary bg-blue-500 text-white p-2 rounded-md">
+      <button
+        onClick={handleSearch}
+        className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+      >
         Search
       </button>
 
-      {results.length > 0 && (
-        <div className="mt-4">
-          <h2 className="text-xl text-white">Available Buses</h2>
-          <ul>
-            {results.map((result) => (
-              <li
-                key={result.id}
-                onClick={() => navigate(`/tracking/${result.id}`)}
-                className="cursor-pointer hover:bg-gray-200 p-2 text-black rounded-md mb-2"
-              >
-                <div>Bus {result.busNumber}</div>
-                <div>Departure: {result.departureTime}</div>
-                <div>ETA: {result.eta}</div>
-              </li>
-            ))}
-          </ul>
+      {showRoutes && (
+        <div className="mt-4 overflow-y-auto h-[calc(100vh-300px)]"> {/* Limit height and enable scrolling */}
+          <SuggestedRoutes routes={results} />
         </div>
       )}
-
-
-      {/* Weather Component
-      <div className="mt-8 px-4">
-        <Weather />
-      </div>
-      */}
-
-    </div >
+    </div>
   );
 };
 
