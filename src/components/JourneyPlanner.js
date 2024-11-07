@@ -83,33 +83,33 @@ const JourneyPlanner = () => {
       setWeather(null); // Reset weather before new search
       fetchWeather(); // Fetch weather after search
 
-      const placeholderResults = [
-        {
-          id: "1",
-          name: "T310",
-          departure: { name: "Pusat Sejahtera", time: "2024-11-08T00:05:39Z" },
-          stops: { number: 17 },
-          arrival: { name: "Queensbay Mall", time: "2024-11-08T00:29:55Z" }
-        },
-        {
-          id: "2",
-          name: "T320",
-          departure: { name: "Komtar", time: "2024-11-08T01:10:00Z" },
-          stops: { number: 12 },
-          arrival: { name: "Batu Ferringhi", time: "2024-11-08T01:40:00Z" }
-        },
-        {
-          id: "3",
-          name: "T330",
-          departure: { name: "Jelutong", time: "2024-11-08T02:00:00Z" },
-          stops: { number: 10 },
-          arrival: { name: "Penang Hill", time: "2024-11-08T02:30:00Z" }
-        }
-      ];
+      // const placeholderResults = [
+      //   {
+      //     id: "1",
+      //     name: "T310",
+      //     departure: { name: "Pusat Sejahtera", time: "2024-11-08T00:05:39Z" },
+      //     stops: { number: 17 },
+      //     arrival: { name: "Queensbay Mall", time: "2024-11-08T00:29:55Z" }
+      //   },
+      //   {
+      //     id: "2",
+      //     name: "T320",
+      //     departure: { name: "Komtar", time: "2024-11-08T01:10:00Z" },
+      //     stops: { number: 12 },
+      //     arrival: { name: "Batu Ferringhi", time: "2024-11-08T01:40:00Z" }
+      //   },
+      //   {
+      //     id: "3",
+      //     name: "T330",
+      //     departure: { name: "Jelutong", time: "2024-11-08T02:00:00Z" },
+      //     stops: { number: 10 },
+      //     arrival: { name: "Penang Hill", time: "2024-11-08T02:30:00Z" }
+      //   }
+      // ];
 
       setResults(placeholderResults);
 
-      /*
+      
       const response = await axios.post('https://routes.googleapis.com/directions/v2:computeRoutes', requestBody, {
         headers: {
           'Content-Type': 'application/json',
@@ -118,16 +118,41 @@ const JourneyPlanner = () => {
         }
       })
       .then(response => {
-        console.log('Route response:', response.data);
-        setResults(response.data);
+        // Assuming 'response' is the API response object returned by axios
+        const data = response.data;
+
+        // Extract arrival, departure, and intermediate stops
+        const extractedStops = data.routes.map(route => {
+          return route.legs.map(leg => {
+            const stops = [];
+            let index = 0;
+            leg.steps.forEach(step => {
+              if (step.transitDetails) {
+                // Add the departure stop
+                stops.push({
+                  id: (index++),
+                  name: step.transitDetails.transitLine.name,
+                  departure: {name: step.transitDetails.stopDetails.departureStop.name, time: step.transitDetails.stopDetails.departureTime},
+                  stops:{number:step.transitDetails.stopCount},
+                  arrival: {name:step.transitDetails.stopDetails.arrivalStop.name, time:step.transitDetails.stopDetails.arrivalTime}
+                });
+              }
+            });
+
+            return stops;
+          });
+        });
+
+        // Log the extracted stops
+        console.log(JSON.stringify(extractedStops.flat(Infinity), null, 2));
+        //console.log('Route response:', response.data);
+        setResults(extractedStops.flat(Infinity));
       })
       .catch(error => {
         console.error('Error fetching route:', error);
       });
-      // const response = await axios.get(`http://localhost:5000/bus-schedules?from=${origin}&to=${destination}&time=${departureTime}`);
-      // setResults(response.data);
 
-      */
+      
     } catch (error) {
       console.error("Error fetching routes:", error);
     }
@@ -175,21 +200,20 @@ const JourneyPlanner = () => {
       <button onClick={handleSearch} className="btn btn-primary bg-blue-500 text-white p-2 rounded-md">
         Search
       </button>
-
       {weather && (
-  <div className="mt-4 text-white">
-    <h3>Weather at {startingPoint}:</h3>
-    <p><strong>Condition:</strong> {weather.description}</p>
-    <p><strong>Temperature:</strong> {weather.temperature}°C</p>
-    <p><strong>Humidity:</strong> {weather.humidity}%</p>
-    <p><strong>Wind Speed:</strong> {weather.windSpeed} m/s</p>
-    <img 
-      src={`https://openweathermap.org/img/wn/${weather.icon}.png`} 
-      alt={weather.description} 
-      className="w-16 h-16" 
-    />
-  </div>
-)}
+      <div className="mt-4 text-white">
+        <h3>Weather at {startingPoint}:</h3>
+        <p><strong>Condition:</strong> {weather.description}</p>
+        <p><strong>Temperature:</strong> {weather.temperature}°C</p>
+        <p><strong>Humidity:</strong> {weather.humidity}%</p>
+        <p><strong>Wind Speed:</strong> {weather.windSpeed} m/s</p>
+        <img 
+          src={`https://openweathermap.org/img/wn/${weather.icon}.png`} 
+          alt={weather.description} 
+          className="w-16 h-16" 
+        />
+      </div>
+    )}
 
 
 

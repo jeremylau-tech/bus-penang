@@ -1,11 +1,15 @@
 // App.js
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import Sidebar from './components/Sidebar';
 import Report from './components/Report';
 import BusRatings from './components/busRatings';
 import SuggestedRoutes from './components/SuggestedRoutes';
 import './App.css';
+import {AdvancedMarker, APIProvider, Map} from '@vis.gl/react-google-maps';
+import { Marker } from '@react-google-maps/api';
 
 function App() {
   // mock review data
@@ -35,7 +39,6 @@ function App() {
         {/* Full-page busRatings component on /busRatings route */}
         <Route path="/busRatings" element={<BusRatings reviews={reviews} />} />
         <Route path="/suggestedRoutes" element={<SuggestedRoutes />} />
-
         {/* Other routes with sidebar and report button */}
         <Route
           path="*"
@@ -51,7 +54,18 @@ function App() {
 
                 {/* Placeholder for the map or other content */}
                 <div className="h-full w-full flex items-center justify-center">
-                  <p className="text-gray-600 text-lg">Your map will be displayed here.</p>
+                <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+                  <Map
+                    mapId={'map'}
+                    style={{width: '100vw', height: '100vh'}}
+                    defaultZoom={13}
+                    gestureHandling={'greedy'}
+                    disableDefaultUI={true}
+                    defaultCenter={ { lat: 5.354867516914033, lng: 100.30160169632266 } }
+                  >
+                  <AdvancedMarker position={{lat: 5.354867516914033, lng: 100.30160169632266}} />
+                  </Map>
+                </APIProvider>
                 </div>
 
                 {/* Report Button at the bottom-right */}
@@ -77,7 +91,10 @@ function App() {
         />
       </Routes>
     </Router>
+
   );
 }
+
+
 
 export default App;
