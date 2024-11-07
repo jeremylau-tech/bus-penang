@@ -64,8 +64,17 @@ const JourneyPlanner = () => {
           'X-Goog-Api-Key': 'YOUR_API_KEY',
           'X-Goog-FieldMask': 'routes.legs.steps.transitDetails'
         }
+      })
+      .then(response => {
+        console.log('Route response:', response.data);
+        setResults(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching route:', error);
       });
-      setResults(response.data.routes);
+      // const response = await axios.get(`http://localhost:5000/bus-schedules?from=${origin}&to=${destination}&time=${departureTime}`);
+      // setResults(response.data);
+
       */
     } catch (error) {
       console.error("Error fetching routes:", error);
@@ -92,19 +101,25 @@ const JourneyPlanner = () => {
           placeholder="Choose destination"
         />
       </div>
-      <button
-        onClick={handleSearch}
-        className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-      >
+      <div className="mb-4">
+        <input
+          type="datetime-local"
+          value={departureTime}
+          onChange={(e) => setDepartureTime(e.target.value)}
+          className="input input-bordered w-full max-w-xs bg-gray-700 text-white pl-2"
+        />
+      </div>
+
+      <button onClick={handleSearch} className="btn btn-primary bg-blue-500 text-white p-2 rounded-md">
         Search
       </button>
 
       {showRoutes && (
         <div className="mt-4 overflow-y-auto h-[calc(100vh-300px)]"> {/* Limit height and enable scrolling */}
           <SuggestedRoutes routes={results} />
-        </div>
+        </div >
       )}
-    </div>
+    </div >
   );
 };
 
