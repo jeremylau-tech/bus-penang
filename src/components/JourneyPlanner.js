@@ -6,6 +6,7 @@ import Weather from './Weather';
 import SuggestedRoutes from './SuggestedRoutes';
 
 const JourneyPlanner = () => {
+  const [weather, setWeather] = useState(null); // state for storing weather data
   const [startingPoint, setStartingPoint] = useState('');
   const [departureTime, setDepartureTime] = useState('');
   const [destination, setDestination] = useState('');
@@ -14,6 +15,50 @@ const JourneyPlanner = () => {
   const navigate = useNavigate();
 
   const formattedDepartureTime = departureTime ? `${departureTime}:00Z` : '';
+
+  const fetchWeather = async () => {
+    if (!startingPoint || !departureTime) return;
+  
+    const apiKey = '844b455ef1106a8b3ae4911e3f12709f';
+    console.log("YOYO:" + startingPoint)  
+    // const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${startingPoint}&units=metric&appid=${apiKey}`;
+    const weatherUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=4.2105&lon=101.9758&exclude=hourly,daily,alerts&appid=${apiKey}&units=metric`;
+    console.log("YOYO:" + weatherUrl) 
+
+    axios.get(weatherUrl)
+    .then(response => {
+      const currentWeather = response.data.current;
+  
+      // Extract relevant data
+      const weatherDescription = currentWeather.weather[0].description;
+      const weatherIcon = currentWeather.weather[0].icon;
+      const temperature = currentWeather.temp;
+      const humidity = currentWeather.humidity;
+      const windSpeed = currentWeather.wind_speed;
+  
+      // Log the data to the console
+      console.log("Weather Description:", weatherDescription);
+      console.log("Weather Icon:", weatherIcon);
+      console.log("Temperature:", temperature);
+      console.log("Humidity:", humidity);
+      console.log("Wind Speed:", windSpeed);
+
+
+      setWeather({
+        description: weatherDescription,
+        icon: weatherIcon,
+        temperature: temperature,
+        humidity: humidity,
+        windSpeed: windSpeed,
+      });
+    })
+    .catch(error => {
+      console.error("Error fetching weather data:", error);
+    });
+    
+      
+  };
+  
 
   const requestBody = {
     origin: { address: startingPoint },
@@ -30,6 +75,8 @@ const JourneyPlanner = () => {
   const handleSearch = async () => {
     try {
       setShowRoutes(true);
+      setWeather(null); // Reset weather before new search
+      fetchWeather(); // Fetch weather after search
 
       const placeholderResults = [
         {
@@ -84,35 +131,62 @@ const JourneyPlanner = () => {
   return (
     <div className="p-4 bg-gray-800 rounded-md text-white h-full flex flex-col">
       <div className="mb-4">
-        <input
-          type="text"
+        <label htmlFor="starting-point" className="block text-sm mb-2">Choose Starting Point</label>
+        <select
+          id="starting-point"
           value={startingPoint}
           onChange={(e) => setStartingPoint(e.target.value)}
           className="w-full p-2 mb-2 bg-gray-700 text-white rounded-md outline-none"
-          placeholder="Choose starting point"
-        />
+        >
+          <option value="">Select Starting Point</option>
+          <option value="School of Physics, Gelugor, Penang">School of Physics, Gelugor, Penang</option>
+          {/* Add more options as needed */}
+        </select>
       </div>
       <div className="mb-4">
-        <input
-          type="text"
+        <label htmlFor="destination" className="block text-sm mb-2">Choose Destination</label>
+        <select
+          id="destination"
           value={destination}
           onChange={(e) => setDestination(e.target.value)}
           className="w-full p-2 mb-2 bg-gray-700 text-white rounded-md outline-none"
-          placeholder="Choose destination"
-        />
-      </div>
-      <div className="mb-4">
-        <input
-          type="datetime-local"
-          value={departureTime}
-          onChange={(e) => setDepartureTime(e.target.value)}
-          className="input input-bordered w-full max-w-xs bg-gray-700 text-white pl-2"
-        />
+        >
+          <option value="">Select Destination</option>
+          <option value="Queensbay Mall, 100, Persiaran Bayan Indah, 11900 Bayan Lepas, Penang">Queensbay Mall, 100, Persiaran Bayan Indah, 11900 Bayan Lepas, Penang</option>
+          {/* Add more options as needed */}
+        </select>
       </div>
 
+      <div className="mb-4">
+        <label htmlFor="departure-time" className="block text-sm mb-2 ">Choose Departure Time</label>
+        <input
+          type="datetime-local"
+          id="departure-time"
+          value={departureTime}
+          onChange={(e) => setDepartureTime(e.target.value)}
+          className="input input-bordered w-full max-w-xs bg-gray-700 text-white pl-2 rounded-md"
+        />
+      </div>
       <button onClick={handleSearch} className="btn btn-primary bg-blue-500 text-white p-2 rounded-md">
         Search
       </button>
+
+      {weather && (
+  <div className="mt-4 text-white">
+    <h3>Weather at {startingPoint}:</h3>
+    <p><strong>Condition:</strong> {weather.description}</p>
+    <p><strong>Temperature:</strong> {weather.temperature}°C</p>
+    <p><strong>Humidity:</strong> {weather.humidity}%</p>
+    <p><strong>Wind Speed:</strong> {weather.windSpeed} m/s</p>
+    <img 
+      src={`https://openweathermap.org/img/wn/${weather.icon}.png`} 
+      alt={weather.description} 
+      className="w-16 h-16" 
+    />
+  </div>
+)}
+
+
 
       {showRoutes && (
         <div className="mt-4 overflow-y-auto h-[calc(100vh-300px)]"> {/* Limit height and enable scrolling */}
