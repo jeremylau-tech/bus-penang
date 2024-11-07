@@ -5,14 +5,44 @@ import Weather from './Weather';
 
 const JourneyPlanner = () => {
   const [startingPoint, setStartingPoint] = useState('');
-  const [destination, setDestination] = useState('');
+  const [departureTime, setDepartureTime] = useState('');
+  const [destination, setDestination] = useState('')
   const [results, setResults] = useState([]);
   const navigate = useNavigate();
 
+  const formattedDepartureTime = departureTime ? `${departureTime}:00Z` : "";
+
+  const requestBody = {
+    origin: { address: origin },
+    destination: { address: destination },
+    travelMode: "TRANSIT",
+    departureTime: formattedDepartureTime,
+    computeAlternativeRoutes: true,
+    transitPreferences: {
+      routingPreference: "LESS_WALKING",
+      allowedTravelModes: ["BUS"]
+    }
+  };
+
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/bus-schedules?from=${startingPoint}&to=${destination}`);
-      setResults(response.data);
+      axios.post('https://routes.googleapis.com/directions/v2:computeRoutes', requestBody, {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Goog-Api-Key': 'AIzaSyC1a3VDKXzUloohjWfOgln8dpmHPXFXm50',  // Replace with your Google API key
+          'X-Goog-FieldMask': 'routes.legs.steps.transitDetails'
+        }
+      })
+      .then(response => {
+        console.log('Route response:', response.data);
+        setResults(response.data);
+
+      })
+      .catch(error => {
+        console.error('Error fetching route:', error);
+      });
+      // const response = await axios.get(`http://localhost:5000/bus-schedules?from=${origin}&to=${destination}&time=${departureTime}`);
+      // setResults(response.data);
     } catch (error) {
       console.error("Error fetching bus schedules", error);
     }
@@ -23,6 +53,8 @@ const JourneyPlanner = () => {
     navigate(`/tracking/${journeyId}`);
   };
 
+
+  console.log(results.data);
   return (
     <div className="p-4 bg-gray-800 rounded-md text-white">
       <div className="mb-4">
@@ -33,6 +65,8 @@ const JourneyPlanner = () => {
           className="w-full p-2 mb-2 bg-gray-700 text-white rounded-md outline-none"
           placeholder="Choose starting point"
         />
+      </div>
+      <div className="mb-4">
         <input
           type="text"
           value={destination}
