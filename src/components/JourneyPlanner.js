@@ -13,7 +13,7 @@ const JourneyPlanner = () => {
   const formattedDepartureTime = departureTime ? `${departureTime}:00Z` : "";
 
   const requestBody = {
-    origin: { address: origin },
+    origin: { address: startingPoint },
     destination: { address: destination },
     travelMode: "TRANSIT",
     departureTime: formattedDepartureTime,
@@ -36,7 +36,6 @@ const JourneyPlanner = () => {
       .then(response => {
         console.log('Route response:', response.data);
         setResults(response.data);
-
       })
       .catch(error => {
         console.error('Error fetching route:', error);
