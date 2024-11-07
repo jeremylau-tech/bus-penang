@@ -34,23 +34,20 @@ const Report = ({ addReview }) => {
     };
 
     const handleSubmit = () => {
-        if (!busNumber) {
-            alert("Please enter a bus number.");
-            return;
-        }
-
         const newReview = {
-            busNumber,
+            busNumber: busNumber || "Unknown", // Temporary placeholder for bus number
             ratings,
             comment,
             date: new Date().toISOString().split('T')[0] // Current date
         };
 
-        addReview(newReview); // Call addReview to save the review
+        // Call the addReview function passed from App.js to save the review
+        addReview(newReview);
+
+        // Clear fields after submitting
         setRatings({ busCondition: 0, staffService: 0, punctuality: 0 });
         setComment('');
         setBusNumber('');
-        alert("Report submitted! Check the /busRatings page.");
     };
 
     return (
@@ -78,8 +75,8 @@ const Report = ({ addReview }) => {
                                 onMouseOver={() => handleMouseOver(category.id, star)}
                                 onMouseOut={() => handleMouseOut(category.id)}
                                 className={`w-8 h-8 cursor-pointer ${star <= (hoveredRating[category.id] || ratings[category.id])
-                                        ? "text-yellow-500"
-                                        : "text-gray-400"
+                                    ? "text-yellow-500"
+                                    : "text-gray-400"
                                     }`}
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 20 20"
