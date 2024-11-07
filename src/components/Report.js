@@ -107,7 +107,7 @@ const Report = ({ addReview }) => {
                 </button>
             </div>
             <div className="h-10 flex items-center justify-center">
-                <a href="#" className="text-gray-600">Maybe later</a>
+                <a href="" className="text-gray-600">Maybe later</a>
             </div>
         </div>
     );

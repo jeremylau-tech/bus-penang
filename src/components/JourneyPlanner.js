@@ -20,38 +20,43 @@ const JourneyPlanner = () => {
     if (!startingPoint || !departureTime) return;
   
     const apiKey = '844b455ef1106a8b3ae4911e3f12709f';
-    console.log("YOYO:" + startingPoint)  
-    // const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${startingPoint}&units=metric&appid=${apiKey}`;
-    const weatherUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=4.2105&lon=101.9758&exclude=hourly,daily,alerts&appid=${apiKey}&units=metric`;
+    console.log("YOYO:" + startingPoint); 
+    console.log("YOYO:" + departureTime);
+    const date = new Date(departureTime);
+    const timestamp = Math.floor(date.getTime() / 1000); // Convert milliseconds to seconds
+    console.log(timestamp);
+    const weatherUrl = `https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=4.2105&lon=101.9758&dt=${timestamp}&appid=${apiKey}`;
+    // const weatherUrl = `https://api.openweathermap.org/data/3.0/timemachine?lat=4.2105&lon=101.9758&dt=${timestamp}&appid=${apiKey}&units=metric`;
     console.log("YOYO:" + weatherUrl) 
 
     axios.get(weatherUrl)
     .then(response => {
-      const currentWeather = response.data.current;
-  
+      const currentWeather = response.data.data[0]; // Access the first item in the data array
+      
       // Extract relevant data
       const weatherDescription = currentWeather.weather[0].description;
       const weatherIcon = currentWeather.weather[0].icon;
-      const temperature = currentWeather.temp;
+      const temperature = currentWeather.temp - 273.15; // Convert Kelvin to Celsius
       const humidity = currentWeather.humidity;
       const windSpeed = currentWeather.wind_speed;
-  
+    
       // Log the data to the console
       console.log("Weather Description:", weatherDescription);
       console.log("Weather Icon:", weatherIcon);
-      console.log("Temperature:", temperature);
+      console.log("Temperature:", temperature); // Now in Celsius
       console.log("Humidity:", humidity);
       console.log("Wind Speed:", windSpeed);
-
-
+    
+      // Update state with the fetched weather data
       setWeather({
         description: weatherDescription,
         icon: weatherIcon,
-        temperature: temperature,
+        temperature: temperature, // Celsius temperature
         humidity: humidity,
         windSpeed: windSpeed,
       });
     })
+    
     .catch(error => {
       console.error("Error fetching weather data:", error);
     });
