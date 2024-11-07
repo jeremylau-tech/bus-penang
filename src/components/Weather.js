@@ -28,7 +28,7 @@ const Weather = ({ date }) => {
           <p>Condition: {weather.condition}</p>
         </div>
       ) : (
-        <p>Loading weather data...</p>
+        <p>Loading weather data... (Link with routes)</p>
       )}
     </div>
   );

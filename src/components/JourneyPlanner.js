@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Weather from './Weather';
 
 const JourneyPlanner = () => {
   const [startingPoint, setStartingPoint] = useState('');
@@ -63,7 +64,15 @@ const JourneyPlanner = () => {
           </ul>
         </div>
       )}
-    </div>
+
+
+      {/* Weather Component
+      <div className="mt-8 px-4">
+        <Weather />
+      </div>
+      */}
+
+    </div >
   );
 };
 

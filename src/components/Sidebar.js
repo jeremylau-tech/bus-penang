@@ -4,6 +4,8 @@ import { NavLink, Routes, Route } from 'react-router-dom';
 import JourneyPlanner from './JourneyPlanner';
 import LiveTracking from './LiveTracking';
 import Weather from './Weather';
+import Bookmarks from './Bookmarks';
+import BusStop from './BusStop';
 
 const Sidebar = () => {
     return (
@@ -22,7 +24,7 @@ const Sidebar = () => {
                         Directions
                     </NavLink>
                     <NavLink
-                        to="/tracking/1"
+                        to="/busStop"
                         className={({ isActive }) =>
                             isActive
                                 ? "text-orange-500 border-b-2 border-orange-500 pb-1"
@@ -32,14 +34,24 @@ const Sidebar = () => {
                         Buses
                     </NavLink>
                     <NavLink
-                        to="/weather"
+                        to="/tracking/1"
                         className={({ isActive }) =>
                             isActive
                                 ? "text-orange-500 border-b-2 border-orange-500 pb-1"
                                 : "text-gray-500"
                         }
                     >
-                        Weather
+                        Live Tracking
+                    </NavLink>
+                    <NavLink
+                        to="/bookmarks"
+                        className={({ isActive }) =>
+                            isActive
+                                ? "text-orange-500 border-b-2 border-orange-500 pb-1"
+                                : "text-gray-500"
+                        }
+                    >
+                        Bookmarks
                     </NavLink>
                 </nav>
             </div>
@@ -49,7 +61,8 @@ const Sidebar = () => {
                 <Routes>
                     <Route path="/plan-journey" element={<JourneyPlanner />} />
                     <Route path="/tracking/:busId" element={<LiveTracking />} />
-                    <Route path="/weather" element={<Weather />} />
+                    <Route path="/bookmarks" element={<Bookmarks />} />
+                    <Route path="/busStop" element={<BusStop />} />
                     <Route path="/" element={<JourneyPlanner />} /> {/* Default route */}
                 </Routes>
             </div>
