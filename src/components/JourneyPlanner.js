@@ -83,37 +83,10 @@ const JourneyPlanner = () => {
       setWeather(null); // Reset weather before new search
       fetchWeather(); // Fetch weather after search
 
-      // const placeholderResults = [
-      //   {
-      //     id: "1",
-      //     name: "T310",
-      //     departure: { name: "Pusat Sejahtera", time: "2024-11-08T00:05:39Z" },
-      //     stops: { number: 17 },
-      //     arrival: { name: "Queensbay Mall", time: "2024-11-08T00:29:55Z" }
-      //   },
-      //   {
-      //     id: "2",
-      //     name: "T320",
-      //     departure: { name: "Komtar", time: "2024-11-08T01:10:00Z" },
-      //     stops: { number: 12 },
-      //     arrival: { name: "Batu Ferringhi", time: "2024-11-08T01:40:00Z" }
-      //   },
-      //   {
-      //     id: "3",
-      //     name: "T330",
-      //     departure: { name: "Jelutong", time: "2024-11-08T02:00:00Z" },
-      //     stops: { number: 10 },
-      //     arrival: { name: "Penang Hill", time: "2024-11-08T02:30:00Z" }
-      //   }
-      // ];
-
-      setResults(placeholderResults);
-
-      
-      const response = await axios.post('https://routes.googleapis.com/directions/v2:computeRoutes', requestBody, {
+      await axios.post('https://routes.googleapis.com/directions/v2:computeRoutes', requestBody, {
         headers: {
           'Content-Type': 'application/json',
-          'X-Goog-Api-Key': 'YOUR_API_KEY',
+          'X-Goog-Api-Key': 'AIzaSyC1a3VDKXzUloohjWfOgln8dpmHPXFXm50',
           'X-Goog-FieldMask': 'routes.legs.steps.transitDetails'
         }
       })

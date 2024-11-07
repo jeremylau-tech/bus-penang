@@ -1,15 +1,13 @@
 // App.js
 
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Report from './components/Report';
 import BusRatings from './components/busRatings';
 import SuggestedRoutes from './components/SuggestedRoutes';
 import './App.css';
 import {AdvancedMarker, APIProvider, Map} from '@vis.gl/react-google-maps';
-import { Marker } from '@react-google-maps/api';
 
 function App() {
   // mock review data
