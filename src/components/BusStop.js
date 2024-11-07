@@ -1,21 +1,25 @@
+// BusStop.js
 import React, { useState } from 'react';
-import axios from 'axios';
 
 const BusStop = () => {
     const [busStop, setBusStop] = useState('');
     const [results, setResults] = useState([]);
 
-    const handleSearch = async () => {
-        try {
-            const response = await axios.get(`http://localhost:5000/bus-stops?search=${busStop}`);
-            setResults(response.data);
-        } catch (error) {
-            console.error("Error fetching bus stops", error);
-        }
+    const handleSearch = () => {
+        // Placeholder data with Penang locations
+        const placeholderData = [
+            { id: "1", name: "101", location: "QueensBay Mall", eta1: "3 mins", eta2: "10 mins" },
+            { id: "2", name: "300", location: "Penang International Airport", eta1: "5 mins", eta2: "15 mins" },
+            { id: "3", name: "303", location: "Komtar", eta1: "8 mins", eta2: "20 mins" },
+            { id: "4", name: "404", location: "Gurney Plaza", eta1: "2 mins", eta2: "12 mins" },
+            { id: "5", name: "505", location: "Batu Ferringhi Beach", eta1: "7 mins", eta2: "18 mins" },
+        ];
+
+        setResults(placeholderData);
     };
 
     return (
-        <div className="p-4 bg-gray-800 rounded-md text-white">
+        <div className="bg-gray-800 rounded-md text-white h-full flex flex-col">
             <div className="mb-4 px-4">
                 <input
                     type="text"
@@ -31,22 +35,32 @@ const BusStop = () => {
                 </button>
             </div>
 
-            {results.length > 0 && (
-                <div className="mt-4 px-4">
-                    <h2 className="text-xl text-gray-900">Available Bus Stops</h2>
-                    <ul>
-                        {results.map((result) => (
-                            <li
-                                key={result.id}
-                                className="cursor-pointer hover:bg-gray-100 p-2 rounded-md mb-2 text-gray-900"
-                            >
-                                <div>Bus Stop: {result.name}</div>
-                                <div>Location: {result.location}</div>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+            <div className="mt-4 px-4 overflow-y-auto h-[calc(100vh-250px)]"> {/* Scrollable area */}
+                {results.length > 0 ? (
+                    <>
+                        <h2 className="text-xl text-gray-300 mb-2">Available Buses</h2>
+                        <ul>
+                            {results.map((result) => (
+                                <li
+                                    key={result.id}
+                                    className="bg-white w-full p-4 rounded-md mb-2 text-gray-900"
+                                >
+                                    <div className="flex justify-between items-start">
+                                        <div className="text-lg font-semibold text-gray-800">Bus {result.name}</div>
+                                        <div className="text-right">
+                                            <p className="text-gray-500">{result.eta1}</p>
+                                            <p className="text-gray-500">{result.eta2}</p>
+                                        </div>
+                                    </div>
+                                    <p className="text-sm text-gray-400 mt-1">Leaves from {result.location}</p>
+                                </li>
+                            ))}
+                        </ul>
+                    </>
+                ) : (
+                    <p className="text-center text-gray-400">No buses available. Enter a bus stop to search.</p>
+                )}
+            </div>
         </div>
     );
 };
