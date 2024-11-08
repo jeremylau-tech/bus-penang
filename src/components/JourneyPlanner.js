@@ -93,7 +93,6 @@ const JourneyPlanner = () => {
         .then(response => {
           // Assuming 'response' is the API response object returned by axios
           const data = response.data;
-
           // Extract arrival, departure, and intermediate stops
           var extractedStops = data.routes.map(route => {
             return route.legs.map(leg => {
