@@ -1,31 +1,33 @@
-// RouteCard.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Notify from '../Notification';
 import { FaHeart } from 'react-icons/fa';
 
 const RouteCard = ({ route }) => {
     const { name, departure, stops, arrival } = route;
     const [isBookmarked, setIsBookmarked] = useState(false);
+    const [cardColor, setCardColor] = useState('bg-white');
 
-    // Generate random integer between 1 and 3
-    const randomInt = Math.floor(Math.random() * 3) + 1;
+    // Set the random color only once when the component mounts
+    useEffect(() => {
+        // Generate random integer between 1 and 3
+        const randomInt = Math.floor(Math.random() * 3) + 1;
 
-    // Define background colors based on the random integer
-    let cardColor;
-    switch (randomInt) {
-        case 1:
-            cardColor = 'bg-green-200'; // Light Green
-            break;
-        case 2:
-            cardColor = 'bg-yellow-200'; // Light Yellow
-            break;
-        case 3:
-            cardColor = 'bg-red-200'; // Light Red
-            break;
-        default:
-            cardColor = 'bg-white'; // Default white background (just in case)
-            break;
-    }
+        // Define background colors based on the random integer
+        switch (randomInt) {
+            case 1:
+                setCardColor('bg-green-200'); // Light Green
+                break;
+            case 2:
+                setCardColor('bg-yellow-200'); // Light Yellow
+                break;
+            case 3:
+                setCardColor('bg-red-200'); // Light Red
+                break;
+            default:
+                setCardColor('bg-white'); // Default white background
+                break;
+        }
+    }, []); // Empty dependency array means this runs once on mount
 
     const formatTime = (time) => new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' });
 
@@ -50,7 +52,7 @@ const RouteCard = ({ route }) => {
             </div>
             <FaHeart
                 onClick={toggleBookmark}
-                className={`absolute bottom-5 right-4 cursor-pointer ${isBookmarked ? 'text-red-500' : 'text-gray-400'}`} // Red if bookmarked
+                className={`absolute bottom-5 right-4 cursor-pointer ${isBookmarked ? 'text-red-500' : 'text-gray-400'}`}
                 size={24}
             />
         </div>
