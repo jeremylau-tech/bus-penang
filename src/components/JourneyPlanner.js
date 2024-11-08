@@ -142,6 +142,8 @@ const JourneyPlanner = () => {
         >
           <option value="">Select Starting Point</option>
           <option value="School of Physics, Gelugor, Penang">School of Physics, Gelugor, Penang</option>
+          <option value="School of Computer Sciences, USM">School of Computer Sciences, USM</option>
+          <option value="Gurney Plaza, 170, Gurney Dr, Pulau Tikus, 10250 George Town, Penang">Gurney Plaza, 170, Gurney Dr, Pulau Tikus, 10250 George Town, Penang</option>
           {/* Add more options as needed */}
         </select>
       </div>
@@ -155,7 +157,9 @@ const JourneyPlanner = () => {
         >
           <option value="">Select Destination</option>
           <option value="Queensbay Mall, 100, Persiaran Bayan Indah, 11900 Bayan Lepas, Penang">Queensbay Mall, 100, Persiaran Bayan Indah, 11900 Bayan Lepas, Penang</option>
-          {/* Add more options as needed */}
+          <option value="School of Physics, Gelugor, Penang">School of Physics, Gelugor, Penang</option>
+          <option value="School of Computer Sciences, USM">School of Computer Sciences, USM</option>
+          <option value="Gurney Plaza, 170, Gurney Dr, Pulau Tikus, 10250 George Town, Penang">Gurney Plaza, 170, Gurney Dr, Pulau Tikus, 10250 George Town, Penang</option>
         </select>
       </div>
 

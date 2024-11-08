@@ -44,6 +44,31 @@ const Report = ({ addReview }) => {
         // Call the addReview function passed from App.js to save the review
         addReview(newReview);
 
+        const fileContent = `
+    Bus Number: ${newReview.busNumber}
+    Date: ${newReview.date}
+    
+    Ratings:
+    Bus Condition: ${ratings.busCondition}
+    Staff Service: ${ratings.staffService}
+    Punctuality: ${ratings.punctuality}
+    
+    Comment: ${comment || 'No comment'}
+    `; 
+
+    const blob = new Blob([fileContent], { type: 'text/plain' });
+
+    // Create a URL for the Blob
+    const fileUrl = URL.createObjectURL(blob);
+
+    // Create a link element to trigger the download
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    link.download = `bus_report_${newReview.date}.txt`;
+
+    // Trigger the click event on the link to download the file
+    link.click();
+
         // Clear fields after submitting
         setRatings({ busCondition: 0, staffService: 0, punctuality: 0 });
         setComment('');
