@@ -52,7 +52,7 @@ function App() {
 
                 {/* Placeholder for the map or other content */}
                 <div className="h-full w-full flex items-center justify-center">
-                <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+                <APIProvider apiKey='AIzaSyC1a3VDKXzUloohjWfOgln8dpmHPXFXm50'>
                   <Map
                     mapId={'map'}
                     style={{width: '100vw', height: '100vh'}}
