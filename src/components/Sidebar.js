@@ -9,7 +9,7 @@ import BusStop from './BusStop';
 
 const Sidebar = () => {
     return (
-        <aside className="w-96 bg-gray-900 text-white h-screen flex flex-col">
+        <aside className="bg-gray-900 text-white h-screen flex flex-col">
             <div className="bg-black text-white p-4 w-full">
                 <h2 className="text-2xl font-bold mb-7">Bus Tracker</h2>
                 <nav className="flex space-x-4">

@@ -43,7 +43,7 @@ function App() {
           element={
             <div className="flex h-screen overflow-hidden">
               {/* Sidebar with scrollable content */}
-              <div className="w-1/3 h-full overflow-y-auto bg-gray-800 sidebar">
+              <div className="w-96 h-full overflow-y-auto bg-gray-800 sidebar">
                 <Sidebar />
               </div>
 

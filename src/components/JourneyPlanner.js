@@ -167,7 +167,7 @@ const JourneyPlanner = () => {
           id="departure-time"
           value={departureTime}
           onChange={(e) => setDepartureTime(e.target.value)}
-          className="input input-bordered w-full max-w-xs bg-gray-700 text-white pl-2 rounded-md"
+          className="input input-bordered  w-full p-2 bg-gray-700 text-white rounded-md outline-none text-lg"
         />
       </div>
       <button onClick={handleSearch} className="btn btn-primary bg-blue-500 text-white p-2 rounded-md">
@@ -191,9 +191,7 @@ const JourneyPlanner = () => {
 
 
       {showRoutes && (
-        <div className="mt-4 overflow-y-auto h-[calc(100vh-300px)]"> {/* Limit height and enable scrolling */}
-          <SuggestedRoutes routes={results} />
-        </div >
+        <SuggestedRoutes routes={results} />
       )}
     </div >
   );
