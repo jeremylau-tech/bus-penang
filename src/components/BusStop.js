@@ -19,7 +19,7 @@ const BusStop = () => {
     };
 
     return (
-        <div className="bg-gray-800 rounded-md text-white h-full flex flex-col">
+        <div className="bg-gray-800 p-3 rounded-md text-white h-full flex flex-col">
             <div className="mb-4 px-4">
                 <input
                     type="text"

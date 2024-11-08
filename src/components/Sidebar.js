@@ -1,6 +1,6 @@
 // components/Sidebar.js
 import React from 'react';
-import { NavLink, Routes, Route } from 'react-router-dom';
+import { NavLink, Routes, Route, Navigate } from 'react-router-dom';
 import JourneyPlanner from './JourneyPlanner';
 import LiveTracking from './LiveTracking';
 import Weather from './Weather';
@@ -34,14 +34,14 @@ const Sidebar = () => {
                         Buses
                     </NavLink>
                     <NavLink
-                        to="/tracking/1"
+                        to="/LRT"
                         className={({ isActive }) =>
                             isActive
                                 ? "text-orange-500 border-b-2 border-orange-500 pb-1"
                                 : "text-gray-500"
                         }
                     >
-                        Live Tracking
+                        LRT
                     </NavLink>
                     <NavLink
                         to="/bookmarks"
@@ -63,7 +63,9 @@ const Sidebar = () => {
                     <Route path="/tracking/:busId" element={<LiveTracking />} />
                     <Route path="/bookmarks" element={<Bookmarks />} />
                     <Route path="/busStop" element={<BusStop />} />
-                    <Route path="/" element={<JourneyPlanner />} /> {/* Default route */}
+
+                    {/* Redirect the root path to "/plan-journey" */}
+                    <Route path="/" element={<Navigate to="/plan-journey" replace />} />
                 </Routes>
             </div>
         </aside>
