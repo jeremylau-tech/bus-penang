@@ -33,6 +33,9 @@ const RouteCard = ({ route }) => {
                 className={`absolute bottom-5 right-4 cursor-pointer ${isBookmarked ? 'text-red-500' : 'text-gray-400'}`} // Red if bookmarked
                 size={24}
             />
+
+            {Notify(arrival.name,formatTime(departure.time),departure.name)}
+
         </div>
     );
 };
