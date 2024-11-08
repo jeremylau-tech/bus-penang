@@ -6,7 +6,8 @@ import LiveTracking from './LiveTracking';
 import Weather from './Weather';
 import Bookmarks from './Bookmarks';
 import BusStop from './BusStop';
-import Logo from './TOPLogo.png'
+import Logo from './TOPLogo.png';
+import LRT from './LRT';
 
 const Sidebar = () => {
     return (
@@ -67,6 +68,7 @@ const Sidebar = () => {
                     <Route path="/tracking/:busId" element={<LiveTracking />} />
                     <Route path="/bookmarks" element={<Bookmarks />} />
                     <Route path="/busStop" element={<BusStop />} />
+                    <Route path="/LRT" element={<LRT />} />
 
                     {/* Redirect the root path to "/plan-journey" */}
                     <Route path="/" element={<Navigate to="/plan-journey" replace />} />
