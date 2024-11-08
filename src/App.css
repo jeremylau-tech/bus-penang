@@ -62,10 +62,11 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1000; /* Ensures the modal is on top */
 }
 
 .modal-content {
@@ -75,7 +76,10 @@
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 300px;
+  max-width: 90%;
+  color: black;
 }
+
 
 .phone-input {
   margin: 10px 0;
@@ -99,3 +103,13 @@
   background-color: #dc3545;
 }
 
+.icon-button {
+  width: 30px; /* Adjust the size as needed */
+  height: 30px;
+  cursor: pointer; /* Changes cursor to pointer when hovering */
+  transition: transform 0.2s ease;
+}
+
+.icon-button:hover {
+  transform: scale(1.1); /* Slightly enlarges on hover */
+}

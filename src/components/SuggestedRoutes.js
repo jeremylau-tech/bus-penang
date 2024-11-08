@@ -1,7 +1,6 @@
 // SuggestedRoutes.js
 import React from 'react';
 import RouteCard from './RouteCard';
-import Notify from '../Notification';
 
 const SuggestedRoutes = ({ routes }) => {
     return (
@@ -10,7 +9,6 @@ const SuggestedRoutes = ({ routes }) => {
             {routes.map((route, index) => (
                 <RouteCard key={index} route={route} />
             ))}
-            {Notify()}
         </div>
     );
 };
