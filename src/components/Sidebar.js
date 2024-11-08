@@ -1,6 +1,6 @@
-// components/Sidebar.js
 import React from 'react';
 import { NavLink, Routes, Route, Navigate } from 'react-router-dom';
+import { FaCamera } from 'react-icons/fa'; // Import camera icon from react-icons
 import JourneyPlanner from './JourneyPlanner';
 import LiveTracking from './LiveTracking';
 import Weather from './Weather';
@@ -13,10 +13,20 @@ const Sidebar = () => {
     return (
         <aside className="bg-gray-900 text-white h-screen flex flex-col">
             <div className="bg-black text-white p-4 w-full">
-            <div className="flex items-center">
-            <img src={Logo} alt="Logo" style={{ width: '100px', height: 'auto' }} />
-            <h2 className="text-2xl font-bolds ml-4">Bus Tracker</h2> {/* Add margin for spacing */}
-            </div>
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                        <img src={Logo} alt="Logo" style={{ width: '100px', height: 'auto' }} />
+                        <h2 className="text-2xl font-bolds ml-4 mb-1">Public Transport</h2>
+                    </div>
+                    <a
+                        href="https://teachablemachine.withgoogle.com/models/4YRlJIKT5/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-500 hover:text-white"
+                    >
+                        <FaCamera size={24} />
+                    </a>
+                </div>
                 <nav className="flex space-x-4">
                     <NavLink
                         to="/plan-journey"
