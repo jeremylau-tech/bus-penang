@@ -26,7 +26,7 @@ const RouteCard = ({ route }) => {
             <p className="text-gray-600 mt-2">Arrives at {arrival.name}</p>
 
             <div className="absolute bottom-4 right-14">
-                {Notify()}
+                {Notify(arrival.name,formatTime(departure.time),departure.name)}
             </div>
             <FaHeart
                 onClick={toggleBookmark}
@@ -34,7 +34,7 @@ const RouteCard = ({ route }) => {
                 size={24}
             />
 
-            {Notify(arrival.name,formatTime(departure.time),departure.name)}
+            
 
         </div>
     );
