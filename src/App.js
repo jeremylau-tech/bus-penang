@@ -55,7 +55,7 @@ function App() {
                 <APIProvider apiKey='AIzaSyC1a3VDKXzUloohjWfOgln8dpmHPXFXm50'>
                   <Map
                     mapId={'map'}
-                    style={{width: '100vw', height: '100vh'}}
+                    style={{width: '100%', height: '100%'}}
                     defaultZoom={13}
                     gestureHandling={'greedy'}
                     disableDefaultUI={true}

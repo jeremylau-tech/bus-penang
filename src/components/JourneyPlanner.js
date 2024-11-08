@@ -95,7 +95,7 @@ const JourneyPlanner = () => {
         const data = response.data;
 
         // Extract arrival, departure, and intermediate stops
-        const extractedStops = data.routes.map(route => {
+        var extractedStops = data.routes.map(route => {
           return route.legs.map(leg => {
             const stops = [];
             let index = 0;

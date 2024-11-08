@@ -4,7 +4,7 @@ import React from 'react';
 const RouteCard = ({ route }) => {
     const { name, departure, stops, arrival } = route;
 
-    const formatTime = (time) => new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+    const formatTime = (time) => new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' });
 
     return (
         <div className="bg-white p-4 text-black rounded-lg shadow-md mb-4 w-full">
