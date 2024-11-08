@@ -55,3 +55,61 @@
   border-radius: 4px;
   /* Round edges for a smoother look */
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensures the modal is on top */
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  max-width: 90%;
+  color: black;
+}
+
+
+.phone-input {
+  margin: 10px 0;
+  padding: 8px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.submit-button, .close-button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-button {
+  background-color: #dc3545;
+}
+
+.icon-button {
+  width: 30px; /* Adjust the size as needed */
+  height: 30px;
+  cursor: pointer; /* Changes cursor to pointer when hovering */
+  transition: transform 0.2s ease;
+}
+
+.icon-button:hover {
+  transform: scale(1.1); /* Slightly enlarges on hover */
+}

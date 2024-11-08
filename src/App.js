@@ -1,5 +1,4 @@
 // App.js
-
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
@@ -8,6 +7,7 @@ import BusRatings from './components/busRatings';
 import SuggestedRoutes from './components/SuggestedRoutes';
 import './App.css';
 import { AdvancedMarker, APIProvider, Map } from '@vis.gl/react-google-maps';
+
 
 function App() {
   // mock review data
@@ -55,6 +55,7 @@ function App() {
 
                 {/* Placeholder for the map or other content */}
                 <div className="h-full w-full flex items-center justify-center">
+
                   <APIProvider apiKey='AIzaSyC1a3VDKXzUloohjWfOgln8dpmHPXFXm50'>
                     <Map
                       mapId={'map'}
@@ -67,6 +68,7 @@ function App() {
                       <AdvancedMarker position={{ lat: 5.354867516914033, lng: 100.30160169632266 }} />
                     </Map>
                   </APIProvider>
+
                 </div>
 
                 {/* Report Button at the bottom-right */}

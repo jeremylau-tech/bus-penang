@@ -1,5 +1,6 @@
 // RouteCard.js
 import React from 'react';
+import Notify from '../Notification';
 
 const RouteCard = ({ route }) => {
     const { name, departure, stops, arrival } = route;
@@ -17,6 +18,7 @@ const RouteCard = ({ route }) => {
                 <span className="text-gray-500">{stops.number} stops</span>
             </div>
             <p className="text-gray-600 mt-2">Arrives at {arrival.name}</p>
+            {Notify()}
         </div>
     );
 };
