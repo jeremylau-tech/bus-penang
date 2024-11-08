@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import './App.css'; // Assuming you have some CSS to style the modal
-import bellIcon from './icons8-notification-30.png'; // Replace this with the path to your icon image
-  
+import '../App.css'; // Assuming you have some CSS to style the modal
+import bellIcon from '../icons8-notification-30.png'; // Replace this with the path to your icon image
+
+
 function Notify( arrivalLocation, departureTime, departureLocation ) {
   console.log('Received props:', { arrivalLocation, departureTime, departureLocation });
   const [showForm, setShowForm] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
+
 
   const toggleForm = () => setShowForm(!showForm);
 
@@ -34,6 +36,7 @@ function Notify( arrivalLocation, departureTime, departureLocation ) {
       alert("Please enter a phone number.");
     }
   };
+
 
   return (
     <div className="App">

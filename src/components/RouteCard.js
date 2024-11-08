@@ -1,5 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
-import Notify from '../Notification';
+
+import Notify from './Notification';
+
 import { FaHeart } from 'react-icons/fa';
 
 const RouteCard = ({ route }) => {
