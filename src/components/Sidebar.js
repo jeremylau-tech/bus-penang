@@ -6,12 +6,16 @@ import LiveTracking from './LiveTracking';
 import Weather from './Weather';
 import Bookmarks from './Bookmarks';
 import BusStop from './BusStop';
+import Logo from './TOPLogo.png'
 
 const Sidebar = () => {
     return (
         <aside className="bg-gray-900 text-white h-screen flex flex-col">
             <div className="bg-black text-white p-4 w-full">
-                <h2 className="text-2xl font-bold mb-7">Bus Tracker</h2>
+            <div className="flex items-center">
+            <img src={Logo} alt="Logo" style={{ width: '100px', height: 'auto' }} />
+            <h2 className="text-2xl font-bolds ml-4">Bus Tracker</h2> {/* Add margin for spacing */}
+            </div>
                 <nav className="flex space-x-4">
                     <NavLink
                         to="/plan-journey"
