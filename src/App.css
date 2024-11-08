@@ -37,3 +37,21 @@
     transform: rotate(360deg);
   }
 }
+
+/* Hide scrollbar background and customize the scrollbar thumb */
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+  /* Width of the scrollbar */
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #1e293b;
+  /* Match background color of the sidebar */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #3b3f52;
+  /* Color of the scrollbar thumb */
+  border-radius: 4px;
+  /* Round edges for a smoother look */
+}

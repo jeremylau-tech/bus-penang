@@ -7,7 +7,7 @@ import Report from './components/Report';
 import BusRatings from './components/busRatings';
 import SuggestedRoutes from './components/SuggestedRoutes';
 import './App.css';
-import {AdvancedMarker, APIProvider, Map} from '@vis.gl/react-google-maps';
+import { AdvancedMarker, APIProvider, Map } from '@vis.gl/react-google-maps';
 
 function App() {
   // mock review data
@@ -41,29 +41,32 @@ function App() {
         <Route
           path="*"
           element={
-            <div className="flex min-h-screen">
-              <Sidebar />
+            <div className="flex h-screen overflow-hidden">
+              {/* Sidebar with scrollable content */}
+              <div className="w-1/3 h-full overflow-y-auto bg-gray-800 sidebar">
+                <Sidebar />
+              </div>
 
               {/* Right side for the main content and Report button */}
-              <div className="flex-grow bg-gray-100 relative">
+              <div className="flex-grow bg-gray-100 relative h-full">
                 <Routes>
                   <Route path="/report" element={<Report addReview={addReview} />} />
                 </Routes>
 
                 {/* Placeholder for the map or other content */}
                 <div className="h-full w-full flex items-center justify-center">
-                <APIProvider apiKey='AIzaSyC1a3VDKXzUloohjWfOgln8dpmHPXFXm50'>
-                  <Map
-                    mapId={'map'}
-                    style={{width: '100%', height: '100%'}}
-                    defaultZoom={13}
-                    gestureHandling={'greedy'}
-                    disableDefaultUI={true}
-                    defaultCenter={ { lat: 5.354867516914033, lng: 100.30160169632266 } }
-                  >
-                  <AdvancedMarker position={{lat: 5.354867516914033, lng: 100.30160169632266}} />
-                  </Map>
-                </APIProvider>
+                  <APIProvider apiKey='AIzaSyC1a3VDKXzUloohjWfOgln8dpmHPXFXm50'>
+                    <Map
+                      mapId={'map'}
+                      style={{ width: '100%', height: '100%' }}
+                      defaultZoom={13}
+                      gestureHandling={'greedy'}
+                      disableDefaultUI={true}
+                      defaultCenter={{ lat: 5.354867516914033, lng: 100.30160169632266 }}
+                    >
+                      <AdvancedMarker position={{ lat: 5.354867516914033, lng: 100.30160169632266 }} />
+                    </Map>
+                  </APIProvider>
                 </div>
 
                 {/* Report Button at the bottom-right */}
