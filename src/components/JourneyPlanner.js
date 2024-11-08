@@ -172,25 +172,11 @@ const JourneyPlanner = () => {
       <button onClick={handleSearch} className="btn btn-primary bg-blue-500 text-white p-2 rounded-md">
         Search
       </button>
-      {weather && (
-        <div className="mt-4 text-white">
-          <h3>Weather at {startingPoint}:</h3>
-          <p><strong>Condition:</strong> {weather.description}</p>
-          <p><strong>Temperature:</strong> {weather.temperature}°C</p>
-          <p><strong>Humidity:</strong> {weather.humidity}%</p>
-          <p><strong>Wind Speed:</strong> {weather.windSpeed} m/s</p>
-          <img
-            src={`https://openweathermap.org/img/wn/${weather.icon}.png`}
-            alt={weather.description}
-            className="w-16 h-16"
-          />
-        </div>
-      )}
 
 
 
       {showRoutes && (
-        <SuggestedRoutes routes={results} />
+        <SuggestedRoutes routes={results} weather={weather} startingPoint={startingPoint} />
       )}
     </div >
   );
