@@ -1,17 +1,16 @@
 import React from 'react';
 import RouteCard from './RouteCard';
 
-const SuggestedRoutes = ({ routes, weather, startingPoint }) => {
+const SuggestedRoutes = ({ routes, weather }) => {
     return (
         <div className="w-full mt-4 rounded-lg">
             <div className="bg-gray-700 p-4 w-full">
-                <h3 className="text-xl font-semibold text-gray-200 mb-4">Suggested Routes</h3>
+                <h3 className="text-xl font-semibold text-gray-200">Suggested Routes</h3>
 
                 {weather && (
                     <div>
                         <div className="flex items-center justify-between">
                             <div>
-                                <h3>Weather at {startingPoint}:</h3>
                                 <p><strong>Condition:</strong> {weather.description}</p>
                                 <p><strong>Temperature:</strong> {Math.round(weather.temperature * 10) / 10}°C</p>
                             </div>
