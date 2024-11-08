@@ -4,7 +4,7 @@ import React from 'react';
 const BusRatings = ({ reviews }) => {
     return (
         <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
-            <h1 className="text-3xl font-bold text-gray-800 mb-6">Bus Ratings</h1>
+            <h1 className="text-3xl font-bold text-gray-800 mb-6">Average Bus Ratings</h1>
             <div className="w-full max-w-2xl bg-white p-4 rounded-lg shadow">
                 {reviews.length > 0 ? (
                     reviews.map((review, index) => (
@@ -20,8 +20,9 @@ const BusRatings = ({ reviews }) => {
                                 <p><strong>Staff Service:</strong> {review.ratings.staffService} / 5</p>
                                 <p><strong>Punctuality:</strong> {review.ratings.punctuality} / 5</p>
                             </div>
-                            <div className="mt-2">
+                            <div className="mt-2 flex justify-between items-center">
                                 <p><strong>Comment:</strong> {review.comment || "No comment provided"}</p>
+                                <a text-xs>205 Reviews</a>
                             </div>
                         </div>
                     ))
